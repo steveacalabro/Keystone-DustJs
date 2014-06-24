@@ -1,5 +1,4 @@
 #Keystone-DustJs
-================
 
 This repository has been created as a fork to [keystone.js](http://keystonejs.com/) using the yeoman [keystone generator](https://github.com/JedWatson/generator-keystone).
 
