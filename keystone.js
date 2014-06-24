@@ -4,30 +4,33 @@ require('dotenv').load();
 
 // Require keystone
 var keystone = require('keystone');
+var dust = require('dustjs-linkedin');
+var cons = require('consolidate');
 
 // Initialise Keystone with your project's configuration.
 // See http://keystonejs.com/guide/config for available options
 // and documentation.
 
 keystone.init({
-	
-	'name': 'Keystone-DustJs',
-	'brand': 'Keystone-DustJs',
-	
-	'less': 'public',
-	'static': 'public',
-	'favicon': 'public/favicon.ico',
-	
-	'views': 'templates/views',
-	'view engine': 'jade',
-	
-	'auto update': true,
-	
-	'session': true,
-	'auth': true,
-	'user model': 'User',
-	'cookie secret': 'nd/63Ktl+GX!lcp{5mn^9,X6&p~gJ7I{BS)wt$VR|J^%"{X<ZA<|[}O7I^lU"0oS'
-	
+
+    'name': 'Keystone-DustJs',
+    'brand': 'Keystone-DustJs',
+
+    'less': 'public',
+    'static': 'public',
+    'favicon': 'public/favicon.ico',
+
+    'views': 'templates/views',
+    'custom engine': cons.dust,
+    'view engine': 'dust',
+
+    'auto update': true,
+
+    'session': true,
+    'auth': true,
+    'user model': 'User',
+    'cookie secret': 'nd/63Ktl+GX!lcp{5mn^9,X6&p~gJ7I{BS)wt$VR|J^%"{X<ZA<|[}O7I^lU"0oS'
+
 });
 
 // Load your project's Models
@@ -39,10 +42,10 @@ keystone.import('models');
 // for each request) should be added to ./routes/middleware.js
 
 keystone.set('locals', {
-	_: require('underscore'),
-	env: keystone.get('env'),
-	utils: keystone.utils,
-	editable: keystone.content.editable
+    _: require('underscore'),
+    env: keystone.get('env'),
+    utils: keystone.utils,
+    editable: keystone.content.editable
 });
 
 // Load your project's Routes
@@ -55,10 +58,10 @@ keystone.set('routes', require('./routes'));
 // Configure the navigation bar in Keystone's Admin UI
 
 keystone.set('nav', {
-	'posts': ['posts', 'post-categories'],
-	'galleries': 'galleries',
-	'enquiries': 'enquiries',
-	'users': 'users'
+    'posts': ['posts', 'post-categories'],
+    'galleries': 'galleries',
+    'enquiries': 'enquiries',
+    'users': 'users'
 });
 
 // Start Keystone to connect to your database and initialise the web server

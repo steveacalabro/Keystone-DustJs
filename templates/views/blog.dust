@@ -1,0 +1,153 @@
+{> "../layouts/default" /}
+
+<!-- Post function is a helper to the show posts function so not repeat code -->
+{<post}
+    <div class='post'>
+        <h2>
+            <a href="/blog/post/if-a-tree-falls-in-a-forest">{title}</a>
+        </h2>
+        <p class="lead text-muted">Posted
+            {?publishedDate}
+                &nbsp;on {publishedDate}&nbsp;<!--publishedDate.format('MMMM Do, YYYY')-->
+            {/publishedDate}
+            {?categories}
+                &nbsp;in&nbsp;
+                {#categories}
+                    {@if cond="{$idx} == ({$len} - 1)"}
+                        <a href="/blog/{key}">{name}</a>
+                    {:else}
+                        <a href="/blog/{key}">{name},</a>&nbsp;
+                    {/if}
+                {/categories}
+            {/categories}
+            {?author}
+                &nbsp;by {author.name.first}&nbsp;{author.name.last}
+            {/author}
+            <!--
+            {?image}
+            {/image}
+            -->
+        </p>
+        <!--<img src="" class="img pull-right">-->
+        <p>{content.brief|s}</p>
+        <p class="read-more"><a href="/blog/post/{slug}">Read more...</a></p>
+    </div>
+{/post}
+
+<!-- Show post function will show a list of posts-->
+{<showPosts}
+    {@gt key=1 value=data.posts.totalPages}
+        <h4 class='text-weight-normal'>Showing
+            <strong>{data.posts.first}</strong>
+            &nbsp;to&nbsp;
+            <strong>{data.posts.last}</strong>
+            &nbsp;of&nbsp;
+            <strong>{data.posts.total}</strong>
+            &nbsp;posts.&nbsp;
+        </h4>
+    {:else}
+        <h4 class='text-weight-normal'>Showing {data.posts.total} posts.</h4>
+    {/gt}
+
+    <div class='blog'>
+        {#data.posts.results}
+            {+post/}
+        {/data.posts.results}
+    </div>
+{/showPosts}
+
+{<content}
+<div class='intro'>
+    <div class='container'>
+        {?data.category}
+            <h1>{data.category.name}</h1>
+        {:else}
+            <h1>Blog</h1>
+        {/data.category}
+    </div>
+    <div class='content'>
+        <div class='container'>
+            <div class='row'>
+                <div class='col-sm-8 col-md-9'>
+                    {?filters.category}
+                        {?data.category}
+                            {@eq key=0 value=data.posts.results.length}
+                                <h3 class='text-muted'>There are no posts in the category {data.category.name}.</h3>
+                            {:else}
+                                {+showPosts/}
+                            {/eq}
+                        {:else}
+                            <h3 class='text-muted'>Invalid Category.</h3>
+                        {/data.category}
+                    {:else}
+                        {@eq key=0 value=data.posts.results.length}
+                            <h3 class='text-muted'>There are no posts yet.</h3>
+                        {:else}
+                            {+showPosts/}
+                        {/eq}
+                    {/filters.category}
+                    {@gt key=1 value=data.posts.totalPages}
+                        <ul class='pagination'>
+                            {?data.posts.previous}
+                                <li>
+                                    <a href='?page={data.posts.previous}'><span class='glyphicon glyphicon-chevron-left'></span></a>
+                                </li>
+                            {:else}
+                                <li class='disabled'>
+                                    <a href='?page={data.posts.previous}' disabled><span class='glyphicon glyphicon-chevron-left'></span></a>
+                                </li>
+                            {/data.posts.previous}
+                            {#data.posts.pages}
+                                {@math key=$idx method="add" operand="1"}
+                                    {@eq value=data.posts.currentPage}
+                                        <li class='active'>
+                                            <a href='?page={@math key=$idx method="add" operand=1/}'>{@math key=$idx method="add" operand=1/}</a>
+                                        </li>
+                                    {:else}
+                                        <li>
+                                            <a href='?page={@math key=$idx method="add" operand=1/}'>{@math key=$idx method="add" operand=1/}</a>
+                                        </li>
+                                    {/eq}
+                                {/math}
+                            {/data.posts.pages}
+                            {?data.posts.next}
+                                <li>
+                                    <a href='?page={data.posts.next}'><span class='glyphicon glyphicon-chevron-right'></span></a>
+                                </li>
+                            {:else}
+                                <li class='disabled'>
+                                    <a href='?page={data.posts.next}' disabled><span class='glyphicon glyphicon-chevron-right'></span></a>
+                                </li>
+                            {/data.posts.next}
+                        </ul>
+                    {/gt}
+                </div>
+                {?data.categories.length}
+                    <div class='col-sm-4 col-md-3'>
+                        <h2>Categories</h2>
+                        <div class='list-group' style='margin-top:70px'>
+                            {?filters.category}
+                                {?data.category}
+                                    <a href='/blog' class='list-group-item'>All Categories</a>
+                                    {#data.categories}
+                                        {@eq key=data.category.name value=name}
+                                            <a href='/blog/{name}' class='list-group-item active'>{name}</a>
+                                        {:else}
+                                            <a href='/blog/{name}' class='list-group-item'>{name}</a>
+                                        {/eq}
+                                    {/data.categories}
+                                {/data.category}
+                            {:else}
+                                <a href='/blog' class='list-group-item active'>All Categories</a>
+                                {#data.categories}
+                                    <a href='/blog/{name}' class='list-group-item'>{name}</a>
+                                {/data.categories}
+                            {/filters.category}
+                        </div>
+                    </div>
+                {/data.categories.length}
+            </div>
+        </div>
+    </div>
+</div>
+{/content}

@@ -1,0 +1,39 @@
+{> "../layouts/default" /}
+
+{<content}
+<div class='content'>
+    <div class='container'>
+        <div class='row'>
+            <div class='col-sm-10 col-sm-offset-1 col-md-8 col-md-offset-2'>
+                <p>
+                    <a href='/blog'>&larr; back to the blog</a>
+                </p>
+                <hr/>
+                {?data.post}
+                    <h1>{data.post.title}</h1>
+                    <h5>Posted</h5>
+                    {?data.post.publishedDate}
+                        | on {data.post.publishedDate.format('MMMM Do, YYYY')}
+                    {/data.post.publishedDate}
+                    {?data.post.categories}
+                        | in
+                        {#data.post.categories}
+                            <a href='/blog/{key}'>{name}</a>
+                        {/data.post.categories}
+                    {/data.post.categories}
+                    {?data.post.author}
+                        | by {data.post.author.name.first}
+                    {/data.post.author}
+                    {?data.post.image}
+                        <div class='image-wrap'>
+                            <img src='{data.post.image}' class='img-responsive' />
+                        </div>
+                    {/data.post.image}
+                {:else}
+                    <h2>Invalid Post.</h2>
+                {/data.post}
+            </div>
+        </div>
+    </div>
+</div>
+{/content}

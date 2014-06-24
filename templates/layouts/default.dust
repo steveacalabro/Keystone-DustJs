@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Drexel Paintball</title>
+
+        <!-- CSS -->
+        <link rel="stylesheet" type="text/css" href="/styles/site.min.css">
+        {?user}
+            {?user.canAccessKeystone}
+                <link rel="stylesheet" type="text/css" href="/keystone/styles/content/editor.min.css">
+            {/user.canAccessKeystone}
+        {/user}
+    </head>
+    <body>
+        <div class='intro'>
+        </div>
+
+        {> "../mixins/nav" /}
+
+        <div class="body-content" data-module="{+module/}">
+            {+content/}
+        </div>
+
+        {> "../mixins/footer" /}
+
+        {> "../mixins/script" /}
+    </body>
+</html>

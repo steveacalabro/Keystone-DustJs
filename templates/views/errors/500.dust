@@ -1,0 +1,6 @@
+{> "../layouts/default" /}
+
+<div class='container'>
+    <h1>Error 500</h1>
+    <p>Sorry, the site has encountered an error.</p>
+</div>
