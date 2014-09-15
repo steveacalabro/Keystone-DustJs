@@ -42,3 +42,27 @@ And after you have added that run the following command to install the denpenden
 
     npm install
     
+You should also run the following so you will be able to edit the admin interface via less files admin.less and login.less located in the public folder
+
+    ./adminize.sh
+    
+### Always run these
+
+These are use to keep a local database in the data/db folder with the logs going to the log folder
+
+    ./run-db.sh
+    ./status.sh
+    ./stop-db.sh
+
+This will install all of the dependencies needed
+
+    npm install
+    bower install
+    
+You should also run the following so you will be able to edit the admin interface via less files admin.less and login.less located in the public folder
+
+    ./adminize.sh
+    
+This final command will run a watch task as well as spin up a server for you. This is the main command I always run in a seperate tab itself
+
+    grunt
