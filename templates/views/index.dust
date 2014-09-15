@@ -17,7 +17,6 @@
         <hr>
         {?user}
             {?user.canAccessKeystone}
-                test
             {/user.canAccessKeystone}
         {/user}
     </div>

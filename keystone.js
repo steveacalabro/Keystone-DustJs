@@ -13,8 +13,8 @@ var cons = require('consolidate');
 
 keystone.init({
 
-    'name': 'Keystone-DustJs',
-    'brand': 'Keystone-DustJs',
+    'name': 'KeystoneDustJs',
+    'brand': 'KeystoneDustJs',
 
     'less': 'public',
     'static': 'public',
@@ -29,7 +29,8 @@ keystone.init({
     'session': true,
     'auth': true,
     'user model': 'User',
-    'cookie secret': 'nd/63Ktl+GX!lcp{5mn^9,X6&p~gJ7I{BS)wt$VR|J^%"{X<ZA<|[}O7I^lU"0oS'
+    'cookie secret': 'nd/63Ktl+GX!lcp{5mn^9,X6&p~gJ7I{BS)wt$VR|J^%"{X<ZA<|[}O7I^lU"0oS',
+    'wysiwyg additional options' : { extended_valid_elements: 'span[!class]' }
 
 });
 

@@ -10,26 +10,38 @@
         </div>
         <div class="collapse navbar-collapse navbar-ex1-collapse">
             <ul class="nav navbar-nav">
-                <li class="active">
+                <!--<li class="active">
                     <a href="/">Home</a>
                 </li>
                 <li>
                     <a href="/blog">Blog</a>
                 </li>
-                <!--
+
                 <li>
                     <a href="/gallery">Gallery</a>
                 </li>
-                -->
+
                 <li>
                     <a href="/contact">Contact</a>
                 </li>
+                -->
+                {#navLinks}
+                {@eq key=section value=key}
+                    <li class='active'>
+                        <a href="{href}">{label}</a>
+                    </li>
+                {:else}
+                    <li>
+                        <a href="{href}">{label}</a>
+                    </li>
+                {/eq}
+                {/navLinks}
             </ul>
             <ul class="nav navbar-nav pull-right">
                 {?user}
                     {?user.canAccessKeystone}
                         <li>
-                            <a href="/keystone">Open Keystone</a>
+                            <a href="/keystone">Admin CP</a>
                         </li>
                     {:else}
                         <li>
